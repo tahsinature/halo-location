@@ -4,11 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <title>Halo Location</title>
   </head>
   <body>
-    <h3 id="dis-lat">Lat</h1>
+    You are a
+    <hr />
+    <!-- <h2>Client</h2>
+    <h2>Vendor</h2> -->
+    <button><a href="/client">Client</a></button>
+    <button><a href="/vendor">Vendor</a></button>
+
+    <!-- <h3 id="dis-lat">Lat</h1>
     <h3 id="dis-lon">Lon</h1>
     <button onclick="updateLoc()">update loc</button>
     <button onclick="updateLocRealtime()">update loc realtime</button>
@@ -32,6 +40,9 @@
       function cancelRealtime() {
         
       }
+    </script> -->
+    <script>
+      console.log(io);
     </script>
   </body>
 </html>

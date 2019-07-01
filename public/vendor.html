@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script src="./javascripts//vendor.js"></script>
+    <title>Vendor</title>
+  </head>
+  <body>
+    <h1>Vendor</h1>
+    <h2>id: <span id="vendor-id"></span></h2>
+    <hr />
+    <div id="map" style="display: none;">
+      <div class="vendor-loc">
+        <h3>My Location</h3>
+        <h5>lat: <span id="my-lat"></span></h5>
+        <h5>lon: <span id="my-lon"></span></h5>
+      </div>
+      <hr />
+      <div id="client-loc">
+        <h3>Client Location</h3>
+        <h4>id: <span id="client-id"></span></h4>
+        <h5>lat: <span id="cus-lat"></span></h5>
+        <h5>lon: <span id="cus-lon"></span></h5>
+      </div>
+    </div>
+  </body>
+</html>
