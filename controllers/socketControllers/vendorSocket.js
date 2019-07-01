@@ -9,6 +9,7 @@ module.exports = socket => {
   });
 
   socket.on("SEND_LOC_TO_CLIENT", ({ customerId, coords, clientId }) => {
+    console.log(coords);
     global.io.emit("LOAD_VENDOR_LOC", { customerId, coords, clientId });
   });
   socket.on("disconnect", async () => {

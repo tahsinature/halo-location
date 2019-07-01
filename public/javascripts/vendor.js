@@ -24,9 +24,7 @@ vendorSocket.on("connect", () => {
       document.getElementById("client-id").textContent = clientId;
 
       navigator.geolocation.watchPosition(s => {
-        document.getElementById("my-lat").textContent = s.coords.latitude;
-        document.getElementById("my-lon").textContent = s.coords.longitude;
-
+        console.log(s);
         vendorSocket.emit("SEND_LOC_TO_CLIENT", {
           customerId,
           clientId,
@@ -35,6 +33,8 @@ vendorSocket.on("connect", () => {
             latitude: s.coords.latitude
           }
         });
+        document.getElementById("my-lat").textContent = s.coords.latitude;
+        document.getElementById("my-lon").textContent = s.coords.longitude;
       });
     }
   });
@@ -43,8 +43,5 @@ vendorSocket.on("connect", () => {
       document.getElementById("cus-lat").textContent = coords.latitude;
       document.getElementById("cus-lon").textContent = coords.longitude;
     }
-  });
-  socket.on("test", ({ vendorId, customerSocketId }) => {
-    console.log("testing");
   });
 });
