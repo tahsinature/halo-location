@@ -37,14 +37,9 @@ vendorSocket.on("connect", () => {
       });
     }
   });
-  socket.on("LOAD_CUSTOMER_LOCATION", ({ customerSocketId, coords }) => {
-    if (customerId === customerSocketId) {
-      document.getElementById("cus-lat").textContent = coords.latitude;
-      document.getElementById("cus-lon").textContent = coords.longitude;
-    }
-  });
 });
 
-vendorSocket.on("test", coords => {
-  console.log(coords);
+vendorSocket.on("LOAD_CUSTOMER_LOCATION", ({ coords }) => {
+  document.getElementById("cus-lat").textContent = coords.latitude;
+  document.getElementById("cus-lon").textContent = coords.longitude;
 });

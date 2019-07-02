@@ -25,8 +25,9 @@ module.exports = socket => {
     "SEND_CLIENT_LOCATION_TO_VENDOR",
     ({ customerSocketId, vendorSocketId, coords }) => {
       const vendorIO = global.io.of("vendor");
-      vendorIO.to(vendorSocketId).emit("test", coords);
-      global.io.emit("LOAD_CUSTOMER_LOCATION", { customerSocketId, coords });
+      vendorIO
+        .to(vendorSocketId)
+        .emit("LOAD_CUSTOMER_LOCATION", { customerSocketId, coords });
     }
   );
   socket.on("disconnect", async () => {

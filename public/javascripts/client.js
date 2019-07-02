@@ -56,11 +56,9 @@ socket.on("VENDOR_DISCONNECTED", id => {
   });
   renderVendors();
 });
-socket.on("LOAD_VENDOR_LOC", ({ customerId, coords, clientId }) => {
-  if (clientId === id) {
-    document.getElementById("ven-lat").textContent = coords.latitude;
-    document.getElementById("ven-lon").textContent = coords.longitude;
-  }
+clientSocket.on("LOAD_VENDOR_LOC", ({ coords }) => {
+  document.getElementById("ven-lat").textContent = coords.latitude;
+  document.getElementById("ven-lon").textContent = coords.longitude;
 });
 
 function renderVendors() {

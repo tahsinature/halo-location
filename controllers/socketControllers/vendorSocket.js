@@ -9,8 +9,8 @@ module.exports = socket => {
   });
 
   socket.on("SEND_LOC_TO_CLIENT", ({ customerId, coords, clientId }) => {
-    console.log(coords);
-    global.io.emit("LOAD_VENDOR_LOC", { customerId, coords, clientId });
+    const customerSocket = global.io.of("client");
+    customerSocket.to(customerId).emit("LOAD_VENDOR_LOC", { coords });
   });
   socket.on("disconnect", async () => {
     const vendor = await Vendor.findOne({ where: { socketId: socket.id } });
