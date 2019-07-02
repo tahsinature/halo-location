@@ -3,6 +3,7 @@ const map = document.getElementById("map");
 const socket = io("/");
 const clientSocket = io("/client");
 let id;
+let servingVendorSocketId;
 let connectedVendors = [];
 
 clientSocket.on("CLIENT_CREATED", ({ vendorIds, clientId }) => {
@@ -20,6 +21,7 @@ socket.on("VENDOR_CREATED", ({ vendorId }) => {
   renderVendors();
 });
 socket.on("ORDER_PLACED", ({ vendorId, customerSocketId, vendorSocketId }) => {
+  servingVendorSocketId = vendorSocketId;
   const splittedSocketid = customerSocketId.split("#", 2)[1];
   if (splittedSocketid === socket.id) {
     document.getElementById("vendor-id").textContent = vendorId;
@@ -50,7 +52,10 @@ socket.on("ORDER_PLACED", ({ vendorId, customerSocketId, vendorSocketId }) => {
   });
   renderVendors();
 });
-socket.on("VENDOR_DISCONNECTED", id => {
+socket.on("VENDOR_DISCONNECTED", ({ vendorId: id, vendorSocketId }) => {
+  if (servingVendorSocketId === vendorSocketId) {
+    console.log("your vendor discon");
+  }
   connectedVendors.find((ele, index) => {
     if (ele === id) connectedVendors.splice(index, 1);
   });

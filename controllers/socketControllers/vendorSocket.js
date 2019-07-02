@@ -15,7 +15,10 @@ module.exports = socket => {
   socket.on("disconnect", async () => {
     const vendor = await Vendor.findOne({ where: { socketId: socket.id } });
     vendor.destroy().then(() => {
-      global.io.emit("VENDOR_DISCONNECTED", vendor.id);
+      global.io.emit("VENDOR_DISCONNECTED", {
+        vendorId: vendor.id,
+        vendorSocketId: socket.id
+      });
     });
   });
 };

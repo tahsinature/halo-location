@@ -33,7 +33,7 @@ module.exports = socket => {
   socket.on("disconnect", async () => {
     const client = await Client.findOne({ where: { socketId: socket.id } });
     client.destroy().then(() => {
-      global.io.emit("CLIENT_DISCONNECTED", client.id);
+      global.io.emit("CLIENT_DISCONNECTED", socket.id);
     });
   });
 };

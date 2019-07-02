@@ -2,7 +2,7 @@ const socket = io("/");
 const vendorSocket = io("/vendor");
 
 let id;
-let customerId; // for taken order
+let customerId; // for taken order (socket id)
 
 vendorSocket.on("connect", () => {
   // console.log();
@@ -13,8 +13,11 @@ vendorSocket.on("connect", () => {
       document.getElementById("vendor-id").textContent = vendorId;
     }
   });
-  socket.on("CLIENT_DISCONNECTED", id => {
-    // console.log(`client: ${id} has been disconnected`);
+  socket.on("CLIENT_DISCONNECTED", socketId => {
+    if (customerId === socketId) {
+      document.getElementById("map").style.display = "none";
+      document.getElementById("client-dis").style.display = "block";
+    }
   });
 
   socket.on("ORDER_PLACED", ({ vendorId, customerSocketId, clientId }) => {
@@ -43,3 +46,7 @@ vendorSocket.on("LOAD_CUSTOMER_LOCATION", ({ coords }) => {
   document.getElementById("cus-lat").textContent = coords.latitude;
   document.getElementById("cus-lon").textContent = coords.longitude;
 });
+
+function reloadApp() {
+  location.reload();
+}
