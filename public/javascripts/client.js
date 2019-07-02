@@ -25,18 +25,24 @@ socket.on("ORDER_PLACED", ({ vendorId, customerSocketId, vendorSocketId }) => {
     document.getElementById("vendor-id").textContent = vendorId;
     document.getElementById("map").style.display = "block";
     document.getElementById("vendor-holder").style.display = "none";
-    navigator.geolocation.watchPosition(s => {
-      clientSocket.emit("updateLoc", {
-        customerSocketId,
-        vendorSocketId,
-        coords: {
-          longitude: s.coords.longitude,
-          latitude: s.coords.latitude
-        }
-      });
-      document.getElementById("my-lat").textContent = s.coords.latitude;
-      document.getElementById("my-lon").textContent = s.coords.longitude;
-    });
+    navigator.geolocation.watchPosition(
+      s => {
+        clientSocket.emit("SEND_CLIENT_LOCATION_TO_VENDOR", {
+          customerSocketId,
+          vendorSocketId,
+          coords: {
+            longitude: s.coords.longitude,
+            latitude: s.coords.latitude
+          }
+        });
+        document.getElementById("my-lat").textContent = s.coords.latitude;
+        document.getElementById("my-lon").textContent = s.coords.longitude;
+      },
+      e => {
+        console.error(e.message);
+      },
+      { maximumAge: 60000, timeout: 5000, enableHighAccuracy: true }
+    );
   }
 
   connectedVendors.find((ele, index) => {

@@ -24,7 +24,6 @@ vendorSocket.on("connect", () => {
       document.getElementById("client-id").textContent = clientId;
 
       navigator.geolocation.watchPosition(s => {
-        console.log(s);
         vendorSocket.emit("SEND_LOC_TO_CLIENT", {
           customerId,
           clientId,
@@ -44,4 +43,8 @@ vendorSocket.on("connect", () => {
       document.getElementById("cus-lon").textContent = coords.longitude;
     }
   });
+});
+
+vendorSocket.on("test", coords => {
+  console.log(coords);
 });

@@ -21,9 +21,14 @@ module.exports = socket => {
       vendorSocketId: vendor.socketId
     });
   });
-  socket.on("updateLoc", ({ customerSocketId, vendorSocketId, coords }) => {
-    global.io.emit("LOAD_CUSTOMER_LOCATION", { customerSocketId, coords });
-  });
+  socket.on(
+    "SEND_CLIENT_LOCATION_TO_VENDOR",
+    ({ customerSocketId, vendorSocketId, coords }) => {
+      const vendorIO = global.io.of("vendor");
+      vendorIO.to(vendorSocketId).emit("test", coords);
+      global.io.emit("LOAD_CUSTOMER_LOCATION", { customerSocketId, coords });
+    }
+  );
   socket.on("disconnect", async () => {
     const client = await Client.findOne({ where: { socketId: socket.id } });
     client.destroy().then(() => {
